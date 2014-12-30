@@ -1,17 +1,36 @@
 ---
 layout: default
 ---
+<div id="post">
+{{ content }}
+</div>
 
-<article class="post">
-  <h1>{{ page.title }}</h1>
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    {% for post in site.related_posts limit:3 %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
 
-  <div class="entry">
-    {{ content }}
-  </div>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:468px;height:60px"
+     data-ad-client="ca-pub-6765360278062198"
+     data-ad-slot="5473940040"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
-  <div class="date">
-    Written on {{ page.date | date: "%B %e, %Y" }}
-  </div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'hueidou';
+    var disqus_identifier = '{{ page.id }}';
 
-  {% include disqus.html disqus_identifier=page.disqus_identifier %}
-</article>
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
