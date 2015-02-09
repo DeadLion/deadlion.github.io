@@ -1,4 +1,3 @@
-[指尖]: http://hueidou.github.com/
 [Disqus]: http://disqus.com/
 [elf+js]: http://elfjs.com/
 [ER]: http://www.errorrik.com/er/
