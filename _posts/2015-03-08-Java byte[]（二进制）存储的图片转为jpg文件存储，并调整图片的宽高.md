@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java byte[]（二进制）存储的图片转为jpg文件存储，并调整图片的宽高
-tags: 翻译
+tags: Java
 ---
 
 {{ page.title }}
