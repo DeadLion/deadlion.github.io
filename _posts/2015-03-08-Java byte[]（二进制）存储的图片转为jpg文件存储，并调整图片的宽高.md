@@ -1,7 +1,7 @@
 ---
 title: 'Java byte[]（二进制）存储的图片转为jpg文件存储，并调整图片的宽高'
 layout: post
-guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aeee2d80
+guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aeee2d88
 tags:
     - Java
 ---
