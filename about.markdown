@@ -5,18 +5,15 @@ layout: page
 
 a
 
-> Minimalist | Appleist | Unixer | Coder
+> Minimalist Coder
 
 who involved in 
 
-> [github](https://github.com/waynezhang)
+> [github](https://github.com/deadlion)
 
 mail 
 
-> echo srvpqxfbyqfvpdtkbjwt | tr yxwvtsrqpkjfdb zuonmlihgeca@.
+> md5 06efa253b14c4bb51cc5fcd4df00ac14
 
-or follow 
-
-> [@o_lll](https://twitter.com/#!/o_lll)
 
 to reach me
