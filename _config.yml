@@ -18,9 +18,6 @@ navigations:
   - title: About
     class: fa fa-user
     href: /about.html
-  - title: Gallery
-    class: fa fa-film
-    href: http://
   - title: Subscribe
     class: fa fa-rss
     href: /atom.xml

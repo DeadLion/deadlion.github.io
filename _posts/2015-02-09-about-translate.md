@@ -3,7 +3,7 @@ title: '关于翻译'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aeee2d80
 tags:
-    - 翻译
+    - translate
 ---
 
 
