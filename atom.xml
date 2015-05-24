@@ -1,25 +1,23 @@
 ---
-layout: nil
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>光光头去打酱油，打破了瓶子打破了头</title>
- <link href="http://deadlion.github.com/atom.xml" rel="self"/>
- <link href="http://deadlion.github.com/"/>
+ <title>{{ site.name }}</title>
+ <link href="{{ site.atom-baseurl }}/atom.xml" rel="self"/>
+ <link href="{{ site.atom-baseurl }}"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://deadlion.github.com/</id>
+ <id>{{ site.atom-baseurl }}/</id>
  <author>
-   <name>deadlion</name>
-   <email>zhongjianno1@gmail.com</email>
+   <name>{{ site.author }}</name>
  </author>
 
- {% for post in site.posts %}
+ {% for post in site.posts limit:10 %}
  <entry>
-   <title>{{ post.title }}</title>
-   <link href="http://deadlion.github.com{{ post.url }}"/>
+   <title>{{ post.title | xml_escape }}</title>
+   <link href="{{ site.atom-baseurl }}{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://deadlion.github.com{{ post.id }}</id>
+   {% if post.guid %}<id>{{ post.guid }}</id>{% else %}<id>{{ site.atom-baseurl }}{{ post.id }}</id>{% endif %}
    <content type="html">{{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}
