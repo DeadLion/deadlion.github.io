@@ -3,8 +3,8 @@ title: '5步避免Hadoop堆空间错误[译]'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-412f-b06a-cef7aeee2d80
 tags:
-    - 翻译
-	- Hadoop
+    - translate
+    - Hadoop
 ---
 
 牢记以下五个步骤可以为你减少很多头痛的问题并且避免Java堆空间错误。
