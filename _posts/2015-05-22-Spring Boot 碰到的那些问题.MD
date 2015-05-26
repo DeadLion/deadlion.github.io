@@ -117,6 +117,7 @@ public class Application extends SpringBootServletInitializer {
 
 
 application.properties
+
 ```
 mail.username=open@exapleo.com
 mail.password=psw
@@ -125,6 +126,7 @@ mail.port=465
 ```
 
 MailService.class
+
 ```
 public class MailService {
 
@@ -135,7 +137,9 @@ public class MailService {
 
 }
 ```
+
 下面让我们来看看正确的姿势是咋样的
+
 ```
 @ConfigurationProperties(prefix = "mail", ignoreUnknownFields = false)
 public class MailService {
