@@ -4,7 +4,7 @@ layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aeee0526
 tags:
     - Java
-	- Web
+    - Web
 ---
 
 
@@ -110,6 +110,45 @@ public class Application extends SpringBootServletInitializer {
 
 }
 ```
+
+## properties配置参数 ##
+项目中可能需要配置其他的服务，比如说电子邮件服务等等。
+比较传统的配置应该是像下面这样
+
+
+application.properties
+```
+mail.username=open@exapleo.com
+mail.password=psw
+mail.host=smtp.mail.com
+mail.port=465
+```
+
+MailService.class
+```
+public class MailService {
+
+    @Value("${mail.username}")
+	private String username = "World";
+    
+    ...
+
+}
+```
+下面让我们来看看正确的姿势是咋样的
+```
+@ConfigurationProperties(prefix = "mail", ignoreUnknownFields = false)
+public class MailService {
+
+	private String username = "World";
+	
+    ...
+    
+}
+```
+直接配置下前缀就行了，后缀名和属性名相同就会自动赋值。是不是很方便！
+
+
 
 ## 最后 ##
 如果后面我遇到了问题我会一直更新下去的。
