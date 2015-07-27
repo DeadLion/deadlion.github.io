@@ -39,6 +39,7 @@ Spring Boot个人感觉比较适合小项目使用，因为里面已经集成好
 [官方文档][1]中已经有了说明了
 
 pom.xml中一些关键的配置：
+
 ```
         <packaging>war</packaging> 
 
@@ -62,6 +63,7 @@ pom.xml中一些关键的配置：
 ## 单元测试 ##
 普通项目，我们可以直接加载xml配置文件来测试，Spring Boot没有配置文件怎么测呢?
 直接加载Application类作为配置
+
 ```
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -76,6 +78,7 @@ public class AppTest {
 
 }
 ```
+
 这样就能注入Dao、Service等进行测试了
 
 ## 简单定时任务 ##
@@ -101,6 +104,7 @@ public class DayJob {
 
 }
 ```
+
 还记得我们之前说过的Application.class么，在Application中使用@EnableScheduling 就支持定时任务了。
 
 ```
