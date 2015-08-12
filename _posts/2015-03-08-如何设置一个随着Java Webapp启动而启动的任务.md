@@ -3,8 +3,8 @@ title: '如何设置一个随着Java Webapp启动而启动的任务'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aee05242
 tags:
-    - Java
-    - Web
+    - java
+    - web
 ---
 
 

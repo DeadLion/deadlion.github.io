@@ -3,8 +3,8 @@ title: 'Spring Boot 碰到的那些问题'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aeee0526
 tags:
-    - Java
-    - Web
+    - java
+    - web
 ---
 
 
