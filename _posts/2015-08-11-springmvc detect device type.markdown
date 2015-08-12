@@ -4,6 +4,7 @@ layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720150811
 tags:
     - Java
+    - Web
 ---
 
 项目中有些页面需要检测访问来源是移动端还是pc端
