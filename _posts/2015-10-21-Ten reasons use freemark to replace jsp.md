@@ -29,21 +29,21 @@ FreeMarker 也可以将[多个加载器](http://freemarker.org/docs/api/freemark
 
 <pre class="brush: java; gutter: true">Configuration configuration = new Configuration();
 configuration.setTemplateLoader(
-new WebappTemplateLoader(servletContext, "WEB-INF/content"));</pre>
+new WebappTemplateLoader(servletContext, "WEB-INF/content"));
 
 ## 3、可以在运行时嵌入模板
 
 FreeMarker 能让你创建真正的模板，而不只是片段 ，还记得 JSP 中的 header 和 footer 吗？FreeMarker 允许你使用一个模板（在本例中为 head.ftl）
 
-<pre class="brush: html; gutter: true"><head>
-<title>${title}</title>
-</head></pre>
+
+    <title>${title}</title>
+
 
 并将其添加到另一个模板（site.ftl body区域）。
 
-<pre class="brush: html; gutter: true"><html>
-${body}
-</html></pre>
+    <html>
+    ${body}
+    </html>
 
 可以以编程的方式选择哪个模板进入 body 区。还可以添加多个模板一起放入同一区域。甚至可以将字符串值或计算的值放入 body 区域。在 JSP 中试试做到这些。
 
@@ -59,27 +59,27 @@ JSP 要求你导入每个你需要使用的类，就像一个常规的 Java 类�
 
 除非你的目标是 Servlet 3.0/El 2.2 标准的容器，那么表达式语言中方法调用是不可用的。不是所有人都同意 EL 表达式中方法调用是一件好事，但是当你需要它们的时候，使用 JSP 真的太痛苦了。 但是 FreeMarker 同等对待其中每个引用。
 
-<pre class="brush: text; gutter: true">${customer.address.country}</pre>
+    ${customer.address.country}
 
-<pre class="brush: text; gutter: true">${customer.getAddress().country}</pre>
+    ${customer.getAddress().country}
 
 ## 7\. 内置空字符串处理
 
 FreeMarker 和 Jsp 都可以在表达式语言中处理空值，但 FreeMarker 在可用性上更先进一些。
 
-<pre class="brush: text; gutter: true">Invoice Date: ${(customer.invoice.date)!}</pre>
+    Invoice Date: ${(customer.invoice.date)!}
 
 感叹号告诉 FreeMarker 对表达式自动检查 null 值和空字符串。如果 customer、invoice 或者 date 中有一个为空值或空字符串，你只会得到标签:
 
-<pre class="brush: text; gutter: true">Invoice Date:</pre>
+    Invoice Date:
 
 另一个选择是感叹号后包括你的默认值。
 
-<pre class="brush: text; gutter: true">Invoice Date: ${(customer.invoice.date)!'No Invoice Available'}</pre>
+    Invoice Date: ${(customer.invoice.date)!'No Invoice Available'}
 
 如果所有值丢失，你会得到:
 
-<pre class="brush: text; gutter: true">Invoice Date: No Invoice Available</pre>
+    Invoice Date: No Invoice Available
 
 请参见[处理缺少的值](http://freemarker.org/docs/dgui_template_exp.html)了解更多细节。
 
@@ -87,18 +87,18 @@ FreeMarker 和 Jsp 都可以在表达式语言中处理空值，但 FreeMarker �
 
 FreeMarker 的共享变量是我最喜欢的“隐藏”功能之一。此功能可以让你设置自动添加到所有模板的值。 例如，可以设置应用程序的名称作为共享变量。
 
-<pre class="brush: java; gutter: true">Configuration configuration = new Configuration();
-configuration.setSharedVariable("app", "StackHunter");</pre>
+    Configuration configuration = new Configuration();
+    configuration.setSharedVariable("app", "StackHunter");
 
 然后像任何其他变量一样访问它。
 
-<pre class="brush: text; gutter: true">App: ${app}</pre>
+    App: ${app}
 
 在过去使用共享变量一般引用资源包 然后使用像 ${i18n.resourceBundle.key} 这样的表达式来获取值。
 
-<pre class="brush: text; gutter: true">${i18n.countries.CA}
-${i18n.countries['CA']}
-${i18n.countries[countryCode]}</pre>
+    ${i18n.countries.CA}
+    ${i18n.countries['CA']}
+    ${i18n.countries[countryCode]}
 
 上面这些行都引用 countries_en.properties 资源包内的 key “CA”对应的值。你需要执行自己的 TemplateHashModel，然后将其添加为一个共享变量来实现这一目标。
 
@@ -106,12 +106,12 @@ ${i18n.countries[countryCode]}</pre>
 
 FreeMarker 内置 JSON 支持。 比方说你有以下的 JSON 存储到变量命名 user 的字符串中。
 
-<pre class="brush: text; gutter: true">{ 'firstName': 'John', 'lastName': 'Smith', 'age': 25, 'address': { 'streetAddress': '21 2nd Street', 'city': 'New York', 'state': 'NY', 'postalCode': 10021 }}</pre>
+    { 'firstName': 'John', 'lastName': 'Smith', 'age': 25, 'address': { 'streetAddress': '21 2nd Street', 'city': 'New York', 'state': 'NY', 'postalCode': 10021 }}
 
 使用 ?eval 将从字符串转换为一个 JSON 对象，然后像其他数据一样在表达式中使用。
 
-<pre class="brush: text; gutter: true"><#assign user = user?eval>
-User: ${user.firstName}, ${user.address.city}</pre>
+    <#assign user = user?eval>
+    User: ${user.firstName}, ${user.address.city}
 
 ## 10、不只是为了 Web 开发
 
