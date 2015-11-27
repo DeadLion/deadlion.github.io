@@ -93,11 +93,11 @@ $count++;
 
 这个脚本会用 wget 检索到客户端请求的原来的 javascript 文件，然后将 /etc/squid/payload.js 文件中的代码增加进去。这个修改的文件（包含我们的有效负载）将被发送给客户端。你也可以创建文件夹 /var/www/tmp ，然后允许 squid 在该文件夹中写入。这个文件夹可以存放所有被修改过的 js 脚本。
 
-## <步骤3：告诉 Squid 使用上文中的脚本
+## 步骤3：告诉 Squid 使用上文中的脚本
 
 在 /etc/squid/squid.conf 中添加
 
-<pre class="brush: text; gutter: true">url_rewrite_program /etc/squid/poison.pl</pre>
+    url_rewrite_program /etc/squid/poison.pl
 
 ## 步骤4：让缓存永不过期
 
