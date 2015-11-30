@@ -56,8 +56,12 @@ ServletContext有个监听器类ServletContextListener
     }
     }
      
-    
-然后在contextInitialized 方法中启动我们的任务
+   
+
+Method1
+-------
+
+在contextInitialized 方法中启动我们的任务
 
     public class MyServletContentListenter implements ServletContextListener {
 
@@ -82,6 +86,10 @@ ServletContext有个监听器类ServletContextListener
 
 这样就OK了
 
+
+Method2
+-------
+
 我们也可以写一个Servlet来达到这样的目的，和上面十分的类似。只不过一个是注册监听器，一个是注册Servlet。
 
 上面的方法比较原生，现在都流行使用框架，那我们再来说一个和spring框架结合的方法。
@@ -94,7 +102,73 @@ ServletContext有个监听器类ServletContextListener
 		<constructor-arg ref="myTokenThread" />
 	</bean>
 我们只要在配置文件中注册两个bean就ok了！
-其实还有很多方法都可以达到我们的目的，上面介绍了两个比较简单的方法。
+
+
+
+
+
+
+Method3  
+-------
+
+####update at 2015-11-30####
+
+
+熟悉 spring 的人应该知道常用的一些注解 @component 注册组件 bean
+其实这些 bean 也是在启动的时候初始化的，所以可以将线程放在构造函数中。
+
+下面直接贴代码了
+
+```
+@Repository
+public class StartWithServer {
+
+	Logger logger = Logger.getLogger(getClass());
+	
+	@Autowired
+	private MessageService messageService;
+	@Autowired
+	private ProjectChangeNotify projectChangeNotify;
+
+	public StartWithServer() {
+
+		Runnable deal = new DealMeassage();
+		new Thread(deal).start();
+	}
+
+	public class DealMeassage implements Runnable {
+
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					TimeUnit.SECONDS.sleep(60);
+//					logger.info("----------------------popMessage----------------------");
+//					messageService.getMnsClient();
+					Message ms = messageService.popMessage();
+					if (null != ms) {
+						//logger.info(ms.getMessageBodyAsString());
+						projectChangeNotify.postMessage(JsonUtil.getObjectFromJson(ms.getMessageBodyAsString(), ProjectDO.class));
+						messageService.delMessage(ms);
+					}
+				} catch (Exception e) {
+					logger.warn("消息处理线程异常："+e.getMessage());
+					//logger.info(messageService.client.isOpen());
+					//messageService.getMnsClient();
+				}
+			}
+
+		}
+
+	}
+
+}
+```
+
+@repository  @controller  @service 等注解和 @component 基本都是一致的，不过根据名字也知道具体是用在什么地方的，就不细说了，如果不知道用啥注解就直接用 @component 好了。
+
+
+其实还有很多方法都可以达到我们的目的，上面介绍了几个比较简单的方法。
 Spring本身也自带了任务执行框架、还有quartz 任务调度框架也能实现，但是配置稍微麻烦些，一般用在定时任务上，像每天同步数据什么之类的。
 
 
