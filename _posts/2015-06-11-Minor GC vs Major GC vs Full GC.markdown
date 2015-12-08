@@ -4,6 +4,7 @@ layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef7aee00611
 tags:
     - translate
+    - java	
 ---
 
 

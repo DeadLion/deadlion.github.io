@@ -3,6 +3,7 @@ title: 'GC tuning in practice[译]'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720150704
 tags:
+    - translate
     - java
     - gc
 ---

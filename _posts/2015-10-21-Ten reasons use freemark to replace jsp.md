@@ -3,6 +3,7 @@ title: '使用FreeMarker替换JSP的10个理由[译]'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720151021
 tags:
+    - translate
     - java
     - web
 ---

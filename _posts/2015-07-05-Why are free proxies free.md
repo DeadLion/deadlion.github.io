@@ -3,6 +3,7 @@ title: 'Why are free proxies free?[译]'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720150705
 tags:
+    - translate
     - web
     - security
 ---
