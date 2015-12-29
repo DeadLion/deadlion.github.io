@@ -21,6 +21,7 @@ tags:
     <script src="//cdn.bootcss.com/jquery-form-validator/2.2.81/jquery.form-validator.min.js"></script>
 
 ```
+
 //data-validation 表示需要使用的规则，required、url 、email、numbers 等等，不同的规则可能会有补充的参数 
 <input name="email" data-validation="email"> 
 
@@ -112,12 +113,14 @@ errorMessageKey：定义的是你的错误提示语的key
 这个框架就有 module 的概念，你可以自己创建一个 module ，把一些功能封装进去。然后在需要使用的页面上加载它就行了。默认提供了一些 module ：security、date、file 等等，提交按钮联动就用到了其中的一个 module — toggleDisabled。
 
 ```
+
 <script>
     $.validate({
         modules: 'toggleDisabled', //加载模块 加载多个的话 逗号隔开 
         showErrorDialogs: true   // 显示错误提示，false 的话，只会出现输入框边框会变红但是没有错误提示
     });
 </script>
+
 ```
 
 默认提交按钮联动有个问题，就是只能识别 type=submit 的情况，但是我们实际使用情况是大部分都不会使用默认的提交按钮，基本都是异步提交，要么绑定在 a 标签或者是button 上。
@@ -125,9 +128,11 @@ errorMessageKey：定义的是你的错误提示语的key
 然后看了下 toggleDisabled 的源码，发现写的还是蛮清晰的，然后自己动手改了下，使用 class 绑定。
 
 ```
+
  var d = function (a, b) {
             "disabled" == b ? a.find('.validation-submit').addClass("disabled").attr("disabled", "disabled") : a.find('.validation-submit').removeClass("disabled").removeAttr("disabled")
         }, e = !1;
+        
 ```
 
      <input class="disabled validation-submit" disabled="disabled"  type="submit" value="确认并追加认购项目"/>
@@ -139,10 +144,12 @@ errorMessageKey：定义的是你的错误提示语的key
 这是人家给我的建议，之前想过应该有的，搜到了在onsubmit 方法中 return false，然而并没有什么暖用，不知道是不是自己写错了。下面的方法试过了确实能 work。
 
 ```
+
 $('#my-form').on('submit', function() {
    // do ajax stuff...
    return false; // prevent default behaviour... 
 });
+
 ```
 
 ## 参数配置 ##
