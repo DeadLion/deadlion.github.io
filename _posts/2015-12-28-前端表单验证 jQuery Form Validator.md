@@ -20,9 +20,6 @@ tags:
 此框架依赖 jquery 。
 
 ```
-//前面还要引入 jquery 哦！
-<script src="//cdn.bootcss.com/jquery-form-validator/2.2.81/jquery.form-validator.min.js"></script>
-
 
 //data-validation 表示需要使用的规则，required、url 、email、numbers 等等，不同的规则可能会有补充的参数 
 <input name="email" data-validation="email"> 
@@ -34,7 +31,6 @@ tags:
 <input type="text" data-validation="custom" data-validation-regexp="^([a-z]+)$">
 
 //js 代码
-<script>
 
 //最简单的写法
 $.validate();
@@ -44,7 +40,7 @@ $.validate({
   form : '#registration'
 });
 
-</script>
+
 ```
 
 还有很多其他的就不再详细介绍了，官网上还是蛮详细的。
@@ -127,12 +123,12 @@ errorMessageKey：定义的是你的错误提示语的key
 
 
 ```
-<script>
+
     $.validate({
         modules: 'toggleDisabled', //加载模块 加载多个的话 逗号隔开 
         showErrorDialogs: true   // 显示错误提示，false 的话，只会出现输入框边框会变红但是没有错误提示
     });
-</script>
+
 ```
 
 
