@@ -22,10 +22,7 @@ tags:
 ```
 //前面还要引入 jquery 哦！
 <script src="//cdn.bootcss.com/jquery-form-validator/2.2.81/jquery.form-validator.min.js"></script>
-```
 
-
-```
 
 //data-validation 表示需要使用的规则，required、url 、email、numbers 等等，不同的规则可能会有补充的参数 
 <input name="email" data-validation="email"> 
@@ -48,7 +45,6 @@ $.validate({
 });
 
 </script>
-
 ```
 
 还有很多其他的就不再详细介绍了，官网上还是蛮详细的。
@@ -58,6 +54,7 @@ $.validate({
 
 如果默认的验证规则无法满足你，而且正则又很长的话，就直接修改下源码，给你自己增加一种规则吧。
 比如我们需要验证手机号，那我们自己写一个验证手机号的验证规则。
+
 
 ```
    /*
@@ -74,11 +71,14 @@ $.validate({
   });
 ```
 
+
 name 表示你在 data-validation 后跟的名字，像这条规则就是验证 1 开头的 11 位数字。
 
 
-     <input name="phone" data-validation="cellphone"> 
-    
+```
+<input name="phone" data-validation="cellphone"> 
+```
+
 
 errorMessageKey：定义的是你的错误提示语的key 
 
@@ -101,10 +101,12 @@ errorMessageKey：定义的是你的错误提示语的key
 因为没有中文版的提示语，所以你可以在这汉化一下，或者增加自己的提示语。
 
 关于错误提示语，如果你只是某些输入框不想使用这些默认的话，可以在 input 标签中增加一个自定义的。
-                
 
-    <input data-validation-error-msg="请输入小于100万的正整数认购金额" data-validation="number" data-validation-allowing="range[1;100]" type="text"  name="money" id="" value=""  placeholder="请输入整数" />
-    
+          
+```
+<input data-validation-error-msg="请输入小于100万的正整数认购金额" data-validation="number" data-validation-allowing="range[1;100]" type="text"  name="money" id="" value=""  placeholder="请输入整数" />
+```    
+
 
 看这条验证规则是 1-100 的整数，你可以根据你们自己的业务需求来自定义这个输入框的错误提示。 
 
@@ -123,6 +125,7 @@ errorMessageKey：定义的是你的错误提示语的key
 很多时候我们会把功能代码全都写到一个文件里，然后随着功能越多，文件也越来越大，不方便维护啊。
 这个框架就有 module 的概念，你可以自己创建一个 module ，把一些功能封装进去。然后在需要使用的页面上加载它就行了。默认提供了一些 module ：security、date、file 等等，提交按钮联动就用到了其中的一个 module — toggleDisabled。
 
+
 ```
 <script>
     $.validate({
@@ -132,9 +135,11 @@ errorMessageKey：定义的是你的错误提示语的key
 </script>
 ```
 
+
 默认提交按钮联动有个问题，就是只能识别 type=submit 的情况，但是我们实际使用情况是大部分都不会使用默认的提交按钮，基本都是异步提交，要么绑定在 a 标签或者是button 上。
 
 然后看了下 toggleDisabled 的源码，发现写的还是蛮清晰的，然后自己动手改了下，使用 class 绑定。
+
 
 ```
  var d = function (a, b) {
@@ -144,8 +149,9 @@ errorMessageKey：定义的是你的错误提示语的key
 ```
 
 
-     <input class="disabled validation-submit" disabled="disabled"  type="submit" value="确认并追加认购项目"/>
-
+```
+<input class="disabled validation-submit" disabled="disabled"  type="submit" value="确认并追加认购项目"/>
+```
 
 使用的时候只要在元素 class 上增加 validation-submit 就好了。 
 为此还提交了个 issue ，真是 show 了一把无知。
