@@ -200,6 +200,9 @@ $('#my-form').on('submit', function() {
 
 提交了 issue ，有回复的话我会回来跟新下。
 
+update 2015-12-30 
+提交的 issue 被改为 Unconfirmed Bug 状态了
+
 ## 其他 ##
 
 总之这工具还是很好用的，还有很多功能没用到。
