@@ -162,6 +162,8 @@ $('#my-form').on('submit', function() {
 });
 ```
 
+
+
 ## 参数配置 ##
  
 还有很多可选的配置项
@@ -186,6 +188,7 @@ $('#my-form').on('submit', function() {
 就不再一一解释了，根据自己需要的配置好了。
 我就修改了 validateHiddenInputs 这项，因为我们表单上有需要验证 hidden 元素的地方。默认是不会对 hidden 表单进行验证的。
 
+
 ## 验证 select 问题 ##
 
 不知道这算不算一个 bug，input 验证绑定在 keyup 事件上的，input 的验证是实时验证。但是对于 select 来说 keyup 是无效的，选择一个选项触发的是 onchange 事件，那就意味着每次选择 select 后要在其他地方点一下，然后提交按钮才变成可点。
@@ -200,10 +203,14 @@ $('#my-form').on('submit', function() {
 
 提交了 issue ，有回复的话我会回来跟新下。
 
-update 2015-12-30 
-提交的 issue 被改为 Unconfirmed Bug 状态了
 
 ## 其他 ##
 
 总之这工具还是很好用的，还有很多功能没用到。
 验证回调方法啊之类的，自己去挖掘吧。
+
+## Update ##
+
+2015-12-30  提交的 issue 被改为 Unconfirmed Bug 状态了
+
+2016-01-14  Bug Fixed in next release 
