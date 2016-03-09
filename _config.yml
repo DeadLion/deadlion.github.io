@@ -1,8 +1,6 @@
-markdown: rdiscount
-highlighter: pygments
+highlighter: rouge
 permalink: /:year/:month/:day/:title.html
 name: "deadlion"
-markdown: rdiscount
 
 author: "deadlion"
 atom-baseurl: "http://"
@@ -21,4 +19,3 @@ navigations:
   - title: Subscribe
     class: fa fa-rss
     href: /atom.xml
-
