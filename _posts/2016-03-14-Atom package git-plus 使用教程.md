@@ -26,3 +26,5 @@ C:\Users\justin\AppData\Local\GitHub\PortableGit_cf76fc1621ac41ad4fe86c420ab5ff4
 我今天尝试了太多方法，所以无法确定到底是什么原因造成的，所以今天尝试的方法就不写了。
 
 今天再来试一下
+
+这次一定成功！
