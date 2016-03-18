@@ -35,6 +35,18 @@ tags:
 
 完整梳理下步骤好了，如果是 windows atom 客户端使用 git-plus 的话。
 
+
+## 如果安装了 github for windows 的话看这里 ##  
+
+1.用 github 客户端 clone 一个你要的项目。  
+2.删掉，然后用 git shell（就是和 github 客户端一起的那个 git shell 工具，而不是单独安装的那个 git bash）, ssh 方式 clone 你的项目。（客户端方式好像只能 https 方式，要不然的话可以直接省略这一步了）  
+3.配置 git.exe 路径。
+
+因为 github 客户端会自动帮你生成 ssh key，比较方便。
+
+
+## 没有安装的话
+
 1.设置 git.exe 的路径，在相应的 package 里面设置。如果在系统 Path 里面已经添加了的话就可以省略此步骤。
 
 如果和我一样使用 github for windows 的话，路径一般像下面这样(默认安装)
@@ -55,5 +67,6 @@ git config --global user.email "youremail"
 ```
 git clone git@github.com:DeadLion/deadlion.github.io.git
 ```
+
 
 关于如何添加 SSH 请参考 [github 官网说明](https://help.github.com/categories/ssh/)。
