@@ -20,6 +20,7 @@ layout: default
       {% endfor %}
     </span>
     {% endif %}
+<<<<<<< HEAD
     <!-- BEGIN this would not work on any other domain -->
     <span
       class           = 'like-wrapper'
@@ -35,6 +36,9 @@ layout: default
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(l);
     </script>
     <!-- END this would not work on any other domain -->
+=======
+
+>>>>>>> bdaf5970537dfcfd6907173e5b9dc2031dd625f5
     </section>
     <section class="post">
     {{ post.content }}
