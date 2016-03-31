@@ -1441,11 +1441,6 @@ if(oid_province==null||oid_province==''){
 }else{
     changeProvince(oid_province);
 }
-var bank_code=$("#oid_bankno").val();
-if(bank_code==null||bank_code==''){
- $("#oid_bankno").val('请选择银行');
-}
-
 
 $("#province_list").change(function(){
 var content=$(this).val();
@@ -1465,29 +1460,5 @@ function changeProvince(proId)
         $("#city_list").append("<option value="+city.cityName+" id="+city.cityId+">"+city.cityName+"</option>");
     }
 }
-
-    var data;
-    var bankName = $("#bank_name").val();
-    if(bankName!=''&&bankName!=null){
-            getBankResource();
-            $("#bank_name").attr("disabled",false);
-    }
-   $("#bank_list li").click(function(){
-    var bankcode=$(this).attr("id");
-    var city = $("#city_id").val();
-    $("#code_bank").val(bankcode);
-    $("#bank_name").val("");
-     $("#loading").show();
-    getBankResource(bankcode,city);
-    });
-     $("#province_list li").click(function(){
-     var bankcode= $("#code_bank").val();
-     var province=$(this).text();
-     var citys = cityJsonData[province];
-     var city =citys[0].cityId;
-     $("#bank_name").val("");
-     $("#loading").show();
-    getBankResource(bankcode,city);
-    });
 
 });
