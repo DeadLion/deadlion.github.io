@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-markdown: rdiscount
-highlighter: pygments
-permalink: /:year/:month/:day/:title.html
-name: "deadlion"
-markdown: rdiscount
-=======
+
 highlighter: rouge
 permalink: /:year/:month/:day/:title.html
-name: "deadlion"
->>>>>>> bdaf5970537dfcfd6907173e5b9dc2031dd625f5
+
 
 author: "deadlion"
 atom-baseurl: "http://"
@@ -27,7 +20,3 @@ navigations:
   - title: Subscribe
     class: fa fa-rss
     href: /atom.xml
-<<<<<<< HEAD
-
-=======
->>>>>>> bdaf5970537dfcfd6907173e5b9dc2031dd625f5
