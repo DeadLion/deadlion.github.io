@@ -21,8 +21,8 @@ tags:
 
 ```
 
-//data-validation 表示需要使用的规则，required、url 、email、numbers 等等，不同的规则可能会有补充的参数 
-<input name="email" data-validation="email"> 
+//data-validation 表示需要使用的规则，required、url 、email、numbers 等等，不同的规则可能会有补充的参数
+<input name="email" data-validation="email">
 
 //numbers    data-validation-allowing="range[1;100]"表示只允许输1-100的整数
 <input type="text" data-validation="number" data-validation-allowing="range[1;100]">
@@ -72,11 +72,11 @@ name 表示你在 data-validation 后跟的名字，像这条规则就是验证 
 
 
 ```
-<input name="phone" data-validation="cellphone"> 
+<input name="phone" data-validation="cellphone">
 ```
 
 
-errorMessageKey：定义的是你的错误提示语的key 
+errorMessageKey：定义的是你的错误提示语的key
 
 ```
 /**
@@ -90,7 +90,7 @@ errorMessageKey：定义的是你的错误提示语的key
       badCellPhone: '请输入正确的手机号'
     }
   };
-``` 
+```
 
 ## 错误提示语 ##
 
@@ -98,15 +98,15 @@ errorMessageKey：定义的是你的错误提示语的key
 
 关于错误提示语，如果你只是某些输入框不想使用这些默认的话，可以在 input 标签中增加一个自定义的。
 
-          
+
 ```
 <input data-validation-error-msg="请输入小于100万的正整数认购金额" data-validation="number" data-validation-allowing="range[1;100]" type="text"  name="money" id="" value=""  placeholder="请输入整数" />
 ```    
 
 
-看这条验证规则是 1-100 的整数，你可以根据你们自己的业务需求来自定义这个输入框的错误提示。 
+看这条验证规则是 1-100 的整数，你可以根据你们自己的业务需求来自定义这个输入框的错误提示。
 
-   
+
 ## 错误提示样式 ##
 
 关于错误提示样式 ，我觉得这个做的还是蛮不错的。边框变红，错误提示语在输入框的下方出现为红色字。
@@ -125,7 +125,7 @@ errorMessageKey：定义的是你的错误提示语的key
 ```
 
     $.validate({
-        modules: 'toggleDisabled', //加载模块 加载多个的话 逗号隔开 
+        modules: 'toggleDisabled', //加载模块 加载多个的话 逗号隔开
         showErrorDialogs: true   // 显示错误提示，false 的话，只会出现输入框边框会变红但是没有错误提示
     });
 
@@ -141,7 +141,7 @@ errorMessageKey：定义的是你的错误提示语的key
  var d = function (a, b) {
             "disabled" == b ? a.find('.validation-submit').addClass("disabled").attr("disabled", "disabled") : a.find('.validation-submit').removeClass("disabled").removeAttr("disabled")
         }, e = !1;
-        
+
 ```
 
 
@@ -149,7 +149,7 @@ errorMessageKey：定义的是你的错误提示语的key
 <input class="disabled validation-submit" disabled="disabled"  type="submit" value="确认并追加认购项目"/>
 ```
 
-使用的时候只要在元素 class 上增加 validation-submit 就好了。 
+使用的时候只要在元素 class 上增加 validation-submit 就好了。
 为此还提交了个 issue ，真是 show 了一把无知。
 
 其实 jquery 可以绑定默认 submit 方法的。
@@ -158,17 +158,12 @@ errorMessageKey：定义的是你的错误提示语的key
 ```
 $('#my-form').on('submit', function() {
    // do ajax stuff...
-   return false; // prevent default behaviour... 
+   return false; // prevent default behaviour...
 });
 ```
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> bdaf5970537dfcfd6907173e5b9dc2031dd625f5
 ## 参数配置 ##
- 
+
 还有很多可选的配置项
 
 
@@ -191,16 +186,12 @@ $('#my-form').on('submit', function() {
 就不再一一解释了，根据自己需要的配置好了。
 我就修改了 validateHiddenInputs 这项，因为我们表单上有需要验证 hidden 元素的地方。默认是不会对 hidden 表单进行验证的。
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bdaf5970537dfcfd6907173e5b9dc2031dd625f5
 ## 验证 select 问题 ##
 
 不知道这算不算一个 bug，input 验证绑定在 keyup 事件上的，input 的验证是实时验证。但是对于 select 来说 keyup 是无效的，选择一个选项触发的是 onchange 事件，那就意味着每次选择 select 后要在其他地方点一下，然后提交按钮才变成可点。
 
 我使用了一个比较傻的方法，就是在 select onchange 事件里对其他的 input blur 一下。
- 
+
 ```
  function inputBlur(){
             $('#company').blur();
@@ -209,12 +200,12 @@ $('#my-form').on('submit', function() {
 
 提交了 issue ，有回复的话我会回来跟新下。
 
-<<<<<<< HEAD
+
 ## 其他 ##
 
 总之这工具还是很好用的，还有很多功能没用到。
 验证回调方法啊之类的，自己去挖掘吧。
-=======
+
 
 ## 其他 ##
 
@@ -225,5 +216,4 @@ $('#my-form').on('submit', function() {
 
 2015-12-30  提交的 issue 被改为 Unconfirmed Bug 状态了
 
-2016-01-14  Bug Fixed in next release 
->>>>>>> bdaf5970537dfcfd6907173e5b9dc2031dd625f5
+2016-01-14  Bug Fixed in next release
