@@ -1,6 +1,7 @@
+
 highlighter: rouge
 permalink: /:year/:month/:day/:title.html
-name: "deadlion"
+
 
 author: "deadlion"
 atom-baseurl: "http://"
