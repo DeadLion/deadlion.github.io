@@ -7,13 +7,13 @@ a
 
 > Minimalist Coder
 
-who involved in 
+who involved in
 
 > [github](https://github.com/deadlion)
 
-mail 
+mail
 
-> md5 06efa253b14c4bb51cc5fcd4df00ac14
+> jasper.coder#gmail
 
 
 to reach me
