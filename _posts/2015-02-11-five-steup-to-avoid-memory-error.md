@@ -1,5 +1,5 @@
 ---
-title: '5步避免Hadoop堆空间错误[译]'
+title: '[译]5步避免Hadoop堆空间错误'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-412f-b06a-cef7aeee2d80
 tags:
@@ -73,7 +73,7 @@ TaskTracker为map/reduce实例分配的slot数量在TaskTracker启动时就设�
 
 
 
-    mapred.tasktracker.map.tasks.maximum 
+    mapred.tasktracker.map.tasks.maximum
     mapred.tasktracker.reduce.tasks.maximum
 
 将实例的slot的数量设置为小于当前计算结果是非常重要的。当前计算的数量可以通过进入JobTracker web界面来确定。例如，如果你有一个TaskTracker ，显示它有6个mpa slot和4个 reduce slot，那么你应该设置 3个map slot、2个 reduce slot。然后通过下面这行命令重启节点上的TaskTracker进程：
@@ -96,4 +96,3 @@ TaskTracker为map/reduce实例分配的slot数量在TaskTracker启动时就设�
 
 
   [1]: http://www.importnew.com/14049.html
-  

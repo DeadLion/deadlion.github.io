@@ -1,5 +1,5 @@
 ---
-title: 'Real-World Problems Being Solved by Java[译]'
+title: '[译]Real-World Problems Being Solved by Java'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720151213
 tags:

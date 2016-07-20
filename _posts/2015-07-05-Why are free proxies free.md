@@ -1,5 +1,5 @@
 ---
-title: 'Why are free proxies free?[译]'
+title: '[译]Why are free proxies free?'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720150705
 tags:
