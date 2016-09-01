@@ -1,7 +1,7 @@
 ---
 title: '[译] 用 Swift 枚举完成 3D touch 快捷操作'
 layout: post
-guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720160829
+guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720160901
 tags:
     - ios
     - translate
