@@ -7,18 +7,18 @@ tags:
     - security
 ---
 
-近期，Mozilla 表态将停止信任 WoSign 和 StartCom 签发的新证书。具体啥原因广大群众自行搜索吧。  
+近期，Mozilla 表态将停止信任 WoSign 和 StartCom 签发的新证书。具体啥原因广大群众自行搜索吧。
 
-公司网站上用的就是 WoSign 的免费证书，也快要到期了，正好看看其他有啥可替代的服务。  
+公司网站上用的就是 WoSign 的免费证书，也快要到期了，正好看看其他有啥可替代的服务。
 
-[Let's Encrypt](https://letsencrypt.org/) 是一家免费、自动化、开放的证书颁发机构（CA）。其它就不多说了，很多人都应该听说过。    
-我们直接进入主题吧。  
+[Let's Encrypt](https://letsencrypt.org/) 是一家免费、自动化、开放的证书颁发机构（CA）。其它就不多说了，很多人都应该听说过。
+我们直接进入主题吧。
 官网提供的方法比较复杂，需要安装很多不必要的东西，推荐一个简化的项目 [acme-tiny](https://github.com/diafygi/acme-tiny) 。基本就是按照该教程来做的。
 
 ## 0x00 克隆 acme-tiny 项目
 
 ```
-sudo git clone https://github.com/diafygi/acme-tiny.git  
+sudo git clone https://github.com/diafygi/acme-tiny.git
 cd acme-tiny
 ```
 
@@ -28,6 +28,7 @@ cd acme-tiny
 ```
 openssl genrsa 4096 > account.key
 ```
+
 ## 0x02 创建域名证书签名请求
 
 ```
@@ -41,7 +42,7 @@ openssl req -new -sha256 -key domain.key -subj "/CN=yoursite.com" > domain.csr
 openssl req -new -sha256 -key domain.key -subj "/" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:a.yoursite.com,DNS:b.yoursite.com")) > domain.csr
 ```
 
-如果创建多域名证书签名请求的话要注意，后面验证的话是同时验证的。如果多个域名指向同一台服务器的话推荐多域名签名。  
+如果创建多域名证书签名请求的话要注意，后面验证的话是同时验证的。如果多个域名指向同一台服务器的话推荐多域名签名。
 还有个问题就是 openssl.cnf 路径按照实际路径来，像我的就是 /etc/pki/tls/openssl.cnf 。
 
 ## 0x03 创建网站服务器 challenge 文件
@@ -76,11 +77,12 @@ server {
 echo 123123 > /var/www/challenges/test.txt && curl http://yourdomian.com/.well-known/acme-challenge/test.txt
 ```
 
-在 /var/www/challenges/ 文件夹下生成一个 txt 文件，然后通过 url 读取该文件，看看是不是正确输出了 123123。    
-出错的原因有可能是下面几种：  
-  * 修改了 nginx 配置，但是没有 reload 。
-  * /etc/hosts 配置有问题。
-  * 还有可能 http 直接重定向到 https 了，那你还是配置到 80 端口上的话就不对了，应该直接配置到 443 端口上。 
+在 /var/www/challenges/ 文件夹下生成一个 txt 文件，然后通过 url 读取该文件，看看是不是正确输出了 123123。
+出错的原因有可能是下面几种：
+
+  - 修改了 nginx 配置，但是没有 reload 。
+  - /etc/hosts 配置有问题。
+  - 还有可能 http 直接重定向到 https 了，那你还是配置到 80 端口上的话就不对了，应该直接配置到 443 端口上。
 
 ## 0x04 获取签名证书
 
@@ -89,8 +91,8 @@ echo 123123 > /var/www/challenges/test.txt && curl http://yourdomian.com/.well-k
 python acme_tiny.py --account-key ./account.key --csr ./domain.csr --acme-dir /var/www/challenges/ > ./signed.crt
 ```
 
-由于服务器的 python 版本是 2.6 的，没有 argparse 模块。  
-两个办法：  
+由于服务器的 python 版本是 2.6 的，没有 argparse 模块。
+两个办法：
 1.升级到 2.7 版本，因为 2.7 自带 argparse 模块。
 2.直接 copy [argparse.py](/media/scripts/argparse.py) 到项目目录（acme-tiny 目录下）。
 
@@ -133,7 +135,7 @@ server {
 ```
 
 ## 0x06 更新证书脚本
-Let's Encrypt 的证书只有三个月的有效期，所有需要配置个自动更新的脚本，原理就是重新执行下申请签名脚本。所以 `0x03` 中的 */.well-known/acme-challenge/* 不能动，还是要保证其可正确访问的。
+Let's Encrypt 的证书只有三个月的有效期，所以需要配置个自动更新的脚本，原理就是重新执行下申请签名脚本。所以 `0x03` 中的 */.well-known/acme-challenge/* 不能动，还是要保证其可正确访问的。
 
 renew_cert.sh
 
