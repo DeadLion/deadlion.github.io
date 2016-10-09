@@ -153,3 +153,32 @@ service nginx reload
 ```
 
 注意修改下相关文件路径。
+
+
+下面是我写的脚本
+
+```
+python /root/acme-tiny/acme_tiny.py --account-key /root/acme-tiny/account.key --csr /root/acme-tiny/domain.csr --acme-dir /var/www/challenges/ > /root/acme-tiny/signed.crt || exit
+cat /root/acme-tiny/signed.crt /root/acme-tiny/intermediate.pem > /root/acme-tiny/chained.pem
+/root/app/tengine/sbin/nginx -s reload
+```
+
+下面这句我觉得没必要，因为好像不会变，不放心的话还是加上吧。谁知道以后会不会变呢。
+
+	wget -O - https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem > intermediate.pem
+
+还有写脚本的时候注意，最好是直接在目标环境上直接写，像我在 windows 上写好传上去的话会出错，因为格式不一样。  
+不过也可以用 vi 编辑器改一下就好了。  
+
+查看文件格式命令：
+
+	:set ff
+
+可以看到如下信息 
+
+     fileformat=dos 或 fileformat=unix 
+     
+利用如下命令修改文件格式 
+
+     :set ff=unix 
+     :wq 
