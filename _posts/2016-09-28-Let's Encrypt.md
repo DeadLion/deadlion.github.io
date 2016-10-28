@@ -15,6 +15,8 @@ tags:
 我们直接进入主题吧。
 官网提供的方法比较复杂，需要安装很多不必要的东西，推荐一个简化的项目 [acme-tiny](https://github.com/diafygi/acme-tiny) 。基本就是按照该教程来做的。
 
+_update 20161028_ 最近发现阿里云和腾讯云都能提供免费 https 证书的服务，不过有个局限就是一个证书只能对一个域名签名。验证方式是添加解析记录的方式。如果你的域名也是在阿里万网上的话，甚至不用自己添加解析记录，可以自动添加，完成验证。全程只需要点点鼠标，填写下信息就好了。对于只需要签一两个域名的情况还是不错的。域名有效期是一年。好像都是赛门铁克的签名机构。详情你们自己去它们网站上看吧。
+
 ## 0x00 克隆 acme-tiny 项目
 
 ```
@@ -174,11 +176,11 @@ cat /root/acme-tiny/signed.crt /root/acme-tiny/intermediate.pem > /root/acme-tin
 
 	:set ff
 
-可以看到如下信息 
+可以看到如下信息
 
-     fileformat=dos 或 fileformat=unix 
-     
-利用如下命令修改文件格式 
+     fileformat=dos 或 fileformat=unix
 
-     :set ff=unix 
-     :wq 
+利用如下命令修改文件格式
+
+     :set ff=unix
+     :wq
