@@ -1,5 +1,5 @@
 ---
-title: 'Nginx 反向代理绑定自定义 https 到 oss'
+title: 'Nginx 反向代理自定义域名 https 到 oss'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720161104
 tags:
