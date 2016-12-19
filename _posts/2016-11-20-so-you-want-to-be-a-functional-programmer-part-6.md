@@ -1,5 +1,5 @@
 ---
-title: '准备充分了嘛就想学函数式编程？(Part 6)'
+title: '[译] 准备充分了嘛就想学函数式编程？(Part 6)'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720161120
 tags:
