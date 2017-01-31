@@ -14,7 +14,7 @@ tags:
 [官方安装教程](https://www.telerik.com/download/fiddler/fiddler-osx-beta)
 
 ### 1.安装 Mono framework
-从 http://www.mono-project.com/download/#download-mac 页面上下载安装 Mono，如果已经安装了最好更新到最新版本。（Mono是.NET Framework的一个开源的、跨平台的实现。）
+从 [http://www.mono-project.com/download/#download-mac](http://www.mono-project.com/download/#download-mac) 页面上下载安装 Mono，如果已经安装了最好更新到最新版本。（Mono是.NET Framework的一个开源的、跨平台的实现。）
 
 ### 2.更新根证书
 
