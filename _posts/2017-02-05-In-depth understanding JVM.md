@@ -1,5 +1,5 @@
 ---
-title: '《深入理解 Java 虚拟机》运行时数据数据区域'
+title: '《深入理解 Java 虚拟机》运行时数据区域'
 layout: post
 guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720170206
 tags:
