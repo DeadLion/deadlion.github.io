@@ -9,7 +9,7 @@ tags:
 
 在 Windows 上比较好用的 http 调试代理工具是 Fiddler ，不过不知道 MacOS 上体验如何。  
 
-下面就来安装体验下。
+最近换了 MBP，想装调试工具，下面就来安装体验下。
 
 [官方安装教程](https://www.telerik.com/download/fiddler/fiddler-osx-beta)
 
@@ -40,7 +40,7 @@ WARNING: mozroots is deprecated, please move to cert-sync instead.（mozroots �
 
 ### 总结
 还没有深度体验，但是已经感觉体验不佳！  
-  - mac 版 fiddler 还处于 beta 版本，稳定性不行。  
-  - 不支持 Retina 屏，字有点模糊。  
-  - 安装麻烦，依赖 Mono，要下载 300+m 的安装包。
-  - 启动麻烦，启动过程中因为 osascript 的原因需要输两次密码才能启动，关闭的时候也需要输入一次密码。
+  * mac 版 fiddler 还处于 beta 版本，稳定性不行。  
+  * 不支持 Retina 屏，字有点模糊。  
+  * 安装麻烦，依赖 Mono，要下载 300+m 的安装包。
+  * 启动麻烦，启动过程中因为 osascript 的原因需要输两次密码才能启动，关闭的时候也需要输入一次密码。
