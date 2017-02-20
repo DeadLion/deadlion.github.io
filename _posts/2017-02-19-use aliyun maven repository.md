@@ -7,8 +7,9 @@ tags:
     - java
 ---
 
-鉴于国内的网络环境不太好，从默认 Maven 库下载 jar 包是非常的痛苦。
-速度慢就不说了，还经常是下不下来，然后一运行就是各种 `ClassNotFoundException`，然后你得找到残留文件删掉重新下，或者下载到本地然后通过命令添加到本地库中。
+鉴于国内的网络环境，从默认 Maven 库下载 jar 包是非常的痛苦。
+速度慢就不说了，还经常是下不下来，然后一运行就是各种 `ClassNotFoundException`，然后你得找到残留文件删掉重新下，或者下载到本地然后通过命令添加到本地库中。  
+当然土豪公司自建仓库的就另当别论啦。
 
 今天就给大家安利下阿里云的 Maven 库：[http://maven.aliyun.com](http://maven.aliyun.com)。秒下 jar 包！
 
@@ -37,3 +38,5 @@ Mac 系统下也是类似的路径 `用户\你的用户名\.m2`
 你也可以针对单个项目使用阿里云 Maven 库，只需要把上面的 repositories 配置复制到项目 POM.xml 中即可。
 
 然后就能体验秒下 jar 包的快感了！
+
+更多配置项请参考[官网文档](https://maven.apache.org/settings.html)。
