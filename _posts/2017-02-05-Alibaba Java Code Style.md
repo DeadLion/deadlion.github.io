@@ -32,4 +32,5 @@ tags:
   - (三) 服务器规约
 - 五、安全规约
 
-[PDF 下载地址](https://img.hacpai.com/file/2017/1/eb0998bac7664496b2f1af98e07b08e5-Java.pdf)
+[官网发布页面](https://yq.aliyun.com/articles/69327?spm=5176.8067842.tagmain.5.hYMnJe)
+[百度盘 v1.1.1 链接: https://pan.baidu.com/s/1pKStTCR 密码: 764i](https://pan.baidu.com/s/1pKStTCR)
