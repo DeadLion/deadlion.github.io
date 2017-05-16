@@ -30,7 +30,7 @@ dubbo admin 服务显示有个 bug。
 
 ### 0x03
 提供者服务启动脚本有点问题，我用了默认的 spring 容器来启动服务的，才会有这些脚本。  
-在打包后的 bin 目录下的 start.sh 脚本中有一句:
+在打包后的 bin 目录下的 start.sh 和 stop.sh脚本中有一句:
 
     ps -f | grep java | grep "$CONF_DIR" |awk '{print $2}'
 
