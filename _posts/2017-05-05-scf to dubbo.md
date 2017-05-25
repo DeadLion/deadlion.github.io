@@ -30,14 +30,16 @@ dubbo admin 服务显示有个 bug。
 
 ### 0x03
 提供者服务启动脚本有点问题，我用了默认的 spring 容器来启动服务的，才会有这些脚本。  
-<<<<<<< HEAD
 在打包后的 bin 目录下的 start.sh 和 stop.sh 脚本中有一句:
-=======
-在打包后的 bin 目录下的 start.sh 和 stop.sh脚本中有一句:
->>>>>>> b433b971d2e8226f80f249bdf1b637156c44a936
 
     ps -f | grep java | grep "$CONF_DIR" |awk '{print $2}'
 
 但是经常会已经启动服务了但是这句脚本找不到进程，推荐修改下脚本
 
     ps -ef | grep java | grep "$CONF_DIR" |awk '{print $2}'
+
+### 0x04
+dubbo 依赖的 spring 版本为 2.5.6.SEC03 ，版本太低了。如果你的项目里没有 spring 的依赖的话倒是无所谓了。如果有其他版本的依赖那很有可能会有冲突，建议排除掉低版本。    
+
+### 0x05
+还有值得一说的就是 log 类了。
