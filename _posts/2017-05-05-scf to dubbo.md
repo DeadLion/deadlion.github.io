@@ -41,5 +41,19 @@ dubbo admin 服务显示有个 bug。
 ### 0x04
 dubbo 依赖的 spring 版本为 2.5.6.SEC03 ，版本太低了。如果你的项目里没有 spring 的依赖的话倒是无所谓了。如果有其他版本的依赖那很有可能会有冲突，建议排除掉低版本。    
 
+```
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+```
+
 ### 0x05
 关于处理线程，默认是 fixed 固定线程池 ，线程数量默认为 200。但是一般来说是不够用的，推荐使用 cached 缓存线程池，空闲一分钟自动删除，需要时重建。
