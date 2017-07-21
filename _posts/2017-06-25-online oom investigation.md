@@ -1,10 +1,19 @@
 ---
-title: '一次线上 OutOfMemoryError 排查'
+title: 一次线上 OutOfMemoryError 排查
 layout: post
-guid: urn:uuid:b87da13a-a4dd-402f-b06a-cef720170625
+guid: 'urn:uuid:b87da13a-a4dd-402f-b06a-cef720170625'
 tags:
-    - java
-    - jvm
+  - java
+  - jvm
+comments:
+  - author:
+      type: full
+      displayName: DeadLion
+      url: 'https://github.com/DeadLion'
+      picture: 'https://avatars3.githubusercontent.com/u/2594907?v=3&s=73'
+    content: test comment
+    date: 2017-07-21T10:23:46.710Z
+
 ---
 
 最近线上服务器经常出现 java.lang.OutOfMemoryError: Java heap space 错误。
