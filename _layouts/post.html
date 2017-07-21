@@ -73,7 +73,7 @@ layout: default
   </section>
   END comment -->
 
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+  <!-- <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
   <script>
     var cloudTieConfig = {
       url: document.location.href,
@@ -82,22 +82,45 @@ layout: default
       target: "cloud-tie-wrapper"
     };
   </script>
-  <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script> -->
 
-  <!-- 多说评论框 start -->
-	<!-- <div class="ds-thread" data-thread-key="{{ page.guid }}" data-title="{{ page.title }}" data-url="{{ page.previous.url }}"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"deadlion"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0]
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script> -->
-<!-- 多说公共JS代码 end -->
+  <noscript>Please enable JavaScript to view the comment form powered by <a href="https://commentit.io/">Comm(ent|it)</a></noscript>
+  <div id="commentit"></div>
+  <script type="text/javascript">
+    /** CONFIGURATION VARIABLES **/
+    var commentitUsername = 'DeadLion';
+    var commentitRepo = 'DeadLion/DeadLion.github.io';
+    var commentitPath = '{{ page.path }}';
+
+    /** DON'T EDIT FOLLOWING LINES **/
+    (function() {
+        var commentit = document.createElement('script');
+        commentit.type = 'text/javascript';
+        commentit.async = true;
+        commentit.src = 'https://commentit.io/static/embed/dist/commentit.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(commentit);
+    })();
+  </script>
+
+  {%if page.comments %}
+  {% assign sorted_comments = (page.comments | sort: 'date') %}
+{% endif %}
+{% for c in sorted_comments %}
+  <div class="media">
+    <div class="media-left">
+      <img src="{{ c.author.picture }}" alt="{{ c.author.displayName}}" height="73" width="73">
+    </div>
+    <div class="media-body">
+      <p class="text-muted">
+        <a href="{{ c.author.url }}">{{ c.author.displayName }}</a>
+        on {{ c.date | date_to_string }}
+      </p>
+      <p>{{ c.content | newline_to_br }}</p>
+    </div>
+  </div>
+{% else %}
+  There are no comments on this post.
+{% endfor %}
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
