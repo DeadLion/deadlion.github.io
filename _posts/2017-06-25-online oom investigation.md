@@ -5,14 +5,6 @@ guid: 'urn:uuid:b87da13a-a4dd-402f-b06a-cef720170625'
 tags:
   - java
   - jvm
-comments:
-  - author:
-      type: full
-      displayName: DeadLion
-      url: 'https://github.com/DeadLion'
-      picture: 'https://avatars3.githubusercontent.com/u/2594907?v=3&s=73'
-    content: test comment
-    date: 2017-07-21T10:23:46.710Z
 
 ---
 
@@ -31,3 +23,13 @@ comments:
 有了第一手错误现场的转储文件其实就能很快的分析出具体是哪些对象把堆内存耗完了。
 
 ### jmap 命令
+
+-dump:[live,]format=b,file=<filename> 我们主要使用这个命令
+
+例如： jmap -dump:format=b,file=dumpfilename 3331
+
+最后的数字是进程 id 。
+
+在 Linux 服务器上可以用 top -c 命令来找找是哪个进程。
+
+[jmap 命令说明](http://docs.oracle.com/javase/7/docs/technotes/tools/share/jmap.html)
