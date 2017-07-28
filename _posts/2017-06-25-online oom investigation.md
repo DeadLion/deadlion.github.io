@@ -64,7 +64,7 @@ GCT	 GC 总时间
 
 像我这次遇到的情况，会发现 FGC 数字一直在增长， CPU 使用率也异常升高很多，其实就是堆空间不足，导致不停的在 GC ，消耗 CPU 资源。
 
-[jstat 命令说](http://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html)
+[jstat 命令说明](http://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html)
 ### 分析 HeapDump
 自带命令 jhat 可以分析，但是 HeapDump 文件很大的话， jhat 命令会卡住。所以不太推荐使用，这里我推荐款比较优秀的第三方分析软件。
 
