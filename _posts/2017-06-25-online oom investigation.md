@@ -88,7 +88,10 @@ File > load 文件类型选择 Heap Dumps > 选择你的文件
 然后找 GC Root，根据 GC 规则，如果能找到 GC Root ，那么这个类是不会被回收的。最终找到原因是因为 Netty 使用不当导致的。
 ![](/media/images/20170726183616.png)
 
+VisualVM 还有很多其他强大的功能。
 #### [Memory Analyzer (MAT)](http://www.eclipse.org/mat/)
 MAT 用起来比较简单，有两种报告模式。  
 1.Leak Suspects Report 内存泄露检测报告，会自动给出最有可能泄露内存的类。   
-2.Component Report 可以用正则来指定分析哪些类。
+2.Component Report 可以用正则来指定分析哪些类。  
+
+个人比较喜欢 VisualVM，自由度比较高。
