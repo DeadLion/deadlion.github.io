@@ -75,3 +75,37 @@ dubbo 依赖的 spring 版本为 2.5.6.SEC03 ，版本太低了。如果你的�
 
 ### 0x06 序列化方式
 推荐使用默认序列化方式（dubbo），之前考虑服务给 php 调用，所以选择了通用的 json 序列化方式，但是后来发现 Java 里复杂类型的情况下（嵌套泛型），最里层的泛型是无法转换成对象的，通通变成 JsonObject 了。如果非要用 json 做序列化的话，就尽量保证参数和结果简单。
+
+### 0x07 关于调试
+想单独测试接口的话可以用 `telnet` 命令。
+
+```
+// IP 和端口号
+telnet 127.0.0.1 26880  
+
+命令：
+
+//显示服务列表
+ls
+
+//显示服务详细信息列表
+ls -l
+
+//显示服务的方法列表
+ls XxxService
+
+//显示服务的方法详细信息列表
+ls -l XxxService
+
+//调用方法
+invoke XxxMethod()
+
+```
+还有其他一些命令，不过调试主要用到 `invoke` 命令。  
+使用的时候建议使用全路径。
+比如：`cn.deadlion.dubbo.getName()`
+会返回结果和耗费的时间。  
+如果方法有简单类型的参数的话，就直接写参数好了。
+`cn.deadlion.dubbo.getNameById(110)`  
+`cn.deadlion.dubbo.getNameByAgeAndNick(110,"deadlion")`
+如果参数是个对象怎么办？使用 json 串。  
