@@ -108,4 +108,5 @@ invoke XxxMethod()
 如果方法有简单类型的参数的话，就直接写参数好了。
 `cn.deadlion.dubbo.getNameById(110)`  
 `cn.deadlion.dubbo.getNameByAgeAndNick(110,"deadlion")`
-如果参数是个对象怎么办？使用 json 串。  
+如果参数是个对象怎么办？使用 json 串。
+`cn.deadlion.dubbo.getNameById({"Age":110,"Nick":"deadlion"})`  
