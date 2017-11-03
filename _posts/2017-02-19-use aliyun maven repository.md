@@ -27,7 +27,7 @@ tags:
         <enabled>false</enabled>
       </snapshots>
     </repository>
-  </repositories>
+</repositories>
 
 ```
 
@@ -35,8 +35,26 @@ Windows 系统默认的路径是 `C:\Users\你的系统用户名\.m2`
 Mac 系统下也是类似的路径 `用户\你的用户名\.m2`
 
 ### 项目配置
-你也可以针对单个项目使用阿里云 Maven 库，只需要把上面的 repositories 配置复制到项目 POM.xml 中即可。
+你也可以针对单个项目使用阿里云 Maven 库，只需要把上面的 repositories 配置复制到项目 pom.xml 中即可。
 
 然后就能体验秒下 jar 包的快感了！
 
 更多配置项请参考[官网文档](https://maven.apache.org/settings.html)。
+
+### 建议使用镜像配置 update 2017-11-03
+
+```
+<repositories>
+</repositories>
+<mirrors>
+    <mirror>
+        <id>alimaven</id>
+        <name>aliyun maven</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        <mirrorOf>central</mirrorOf>
+    </mirror>
+</mirrors>
+```
+
+昨天无意中看到有些博客居然照抄了这篇文章，而且还声称自己是原创。  
+github 中有提交记录的，一查就知道谁先写了。  
