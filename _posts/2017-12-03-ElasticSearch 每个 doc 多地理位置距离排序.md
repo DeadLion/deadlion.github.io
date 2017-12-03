@@ -42,5 +42,4 @@ ElasticSearch 同一条记录中包含多个经纬度做距离排序问题。
 参考：
 
 [support geo sorting on multiple geo point values per doc](https://github.com/elastic/elasticsearch/issues/1846)  
-
 [Sort](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html)
