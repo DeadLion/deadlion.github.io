@@ -82,3 +82,5 @@ Troubleshooting 14.12 Why does Connector/J not reconnect to MySQL and re-issue t
 - [Ping a MySQL server](https://stackoverflow.com/questions/4569956/ping-a-mysql-server)
 - [MySQL Connector/J 5.1 Developer Guide Troubleshooting Connector/J Applications](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-troubleshooting.html)
 - [Driver/Datasource Class Names, URL Syntax and Configuration Properties for Connector/J](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-configuration-properties.html)
+- [Solving a “communications link failure” with JDBC and MySQL [duplicate]
+](https://stackoverflow.com/questions/6865538/solving-a-communications-link-failure-with-jdbc-and-mysql)
