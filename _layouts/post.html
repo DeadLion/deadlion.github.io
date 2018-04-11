@@ -51,30 +51,7 @@ layout: default
 
                 <hr>
 
-                {% if site.duoshuo_share && site.duoshuo_username %}
-                <!-- 多说 Share start -->
-                </style>
-                <div class="ds-share"
-                    style="text-align: right"
-                    data-thread-key="{{page.id}}"
-                    data-title="{{page.title}}"
-                    data-url="{{site.url}}{{site.baseurl}}{{page.url}}"
-                    data-images="{{ site.url }}{{site.baseurl}}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}"
-                    data-content="{{ content | strip_html | truncate:80 }} | {{ site.SEOTitle }} " >
-                    <div class="ds-share-inline">
-                      <ul  class="ds-share-icons-16">
-                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
-                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
-                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
-                      </ul>
-                      <div class="ds-share-icons-more">
-                      </div>
-                    </div>
-                <hr>
-                </div>
-                <!-- 多说 Share end-->
-                {% endif %}
+
 
 
                 <ul class="pager">
@@ -90,18 +67,44 @@ layout: default
                     {% endif %}
                 </ul>
 
+				
 
-                {% if site.duoshuo_username %}
-                <!-- 多说评论框 start -->
-                <div class="comment">
-                    <div class="ds-thread"
-                        data-thread-key="{{page.id}}"
-                        data-title="{{page.title}}"
-                        data-url="{{site.url}}{{site.baseurl}}{{page.url}}" >
-                    </div>
-                </div>
-                <!-- 多说评论框 end -->
-                {% endif %}
+<div id="commentit"></div>
+<script type="text/javascript">
+  /** CONFIGURATION VARIABLES **/
+  var commentitUsername = 'DeadLion';
+  var commentitRepo = 'DeadLion/DeadLion.github.io';
+  var commentitPath = '{{ page.path }}';
+
+  /** DON'T EDIT FOLLOWING LINES **/
+  (function() {
+      var commentit = document.createElement('script');
+      commentit.type = 'text/javascript';
+      commentit.async = true;
+      commentit.src = 'https://commentit.io/static/embed/dist/commentit.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(commentit);
+  })();
+</script>
+{%if page.comments %}
+  {% assign sorted_comments = (page.comments | sort: 'date') %}
+{% endif %}
+{% for c in sorted_comments %}
+  <div class="media">
+    <div class="media-left">
+      <img src="{{ c.author.picture }}" alt="{{ c.author.displayName}}" height="73" width="73">
+    </div>
+    <div class="media-body">
+      <p class="text-muted">
+        <a href="{{ c.author.url }}">{{ c.author.displayName }}</a>
+        on {{ c.date | date_to_string }}
+      </p>
+      <p>{{ c.content | newline_to_br }}</p>
+    </div>
+  </div>
+{% else %}
+  There are no comments on this post.
+{% endfor %}
+				
 
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
@@ -150,26 +153,6 @@ layout: default
         </div>
     </div>
 </article>
-
-{% if site.duoshuo_username %}
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    // dynamic User by Hux
-    var _user = '{{site.duoshuo_username}}';
-
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 end -->
-{% endif %}
 
 
 {% if site.disqus_username %}
