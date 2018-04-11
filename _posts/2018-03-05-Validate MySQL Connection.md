@@ -1,9 +1,18 @@
 ---
-title: '数据库连接池碰到的那些问题'
+title: 数据库连接池碰到的那些问题
 layout: post
-subtitle: "MySQL,Last packet sent to the server,testOnBorrow,connection pool"
+subtitle: 'MySQL,Last packet sent to the server,testOnBorrow,connection pool'
 tags:
   - mysql
+comments:
+  - author:
+      type: full
+      displayName: DeadLion
+      url: 'https://github.com/DeadLion'
+      picture: 'https://avatars0.githubusercontent.com/u/2594907?v=4&s=73'
+    content: test comment
+    date: 2018-04-11T08:47:40.972Z
+
 ---
 
 项目中一直有一个顽疾，就是数据库连接池这块。现在用的连接池是之前团队自己写的，然后和项目耦合的很紧，没办法直接替换掉，所以一直没动过。下面说问题。
