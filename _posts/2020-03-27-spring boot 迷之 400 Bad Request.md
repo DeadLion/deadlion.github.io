@@ -6,7 +6,7 @@ tags:
   - spring boot,java
 ---
 
-昨天两个应用的接口都碰到了 400 错误，但是错误日志还不一样。本地还无法复现！
+昨天两个接口都碰到了 400 错误，但是错误日志还不一样。
 
 
 ### 1 The character [_] is never valid in a domain name
@@ -49,8 +49,6 @@ java.lang.IllegalArgumentException: The character [_] is never valid in a domain
 可以从源头来解决，我的情况就是上游的 nginx 转发请求的时候往 host 值里加了 auth_tv，那如果能改掉这个名字就可以了呀，或者如果你的应用不需要用到 header 中 host 值的话，可以考虑 nginx 屏蔽掉 host。
 
 
-[Improve logging in AbstractProcessor.parseHost()](https://bz.apache.org/bugzilla/show_bug.cgi?id=62371#c14)
-
 ### 2 The valid characters are defined in RFC 7230 and RFC 3986
 ```
 2020-03-27 14:46:16.296 [http-nio-19098-exec-1] INFO  org.apache.coyote.http11.Http11Processor - Error parsing HTTP request header
@@ -68,7 +66,7 @@ java.lang.IllegalArgumentException: Invalid character found in the request targe
         at java.lang.Thread.run(Thread.java:748) [?:1.8.0_161]
 ```
 
-这是因为在 url 中带了特殊字符`{}|`，我们的接口地址是 `http://xxx?request={"key":"value"} `，本地 postman 测试复现不了，经过 debug 发现 postman 自动对特殊字符做了 urlencode 。这个问题还是挺坑的，本地用 httpclient 去构造请求的话也会直接校验 queryString，有特殊字符的话无法发出请求。最后要到了调用方的代码，发现用这个版本的工具包可以复现出来 400。
+这是因为在 url 中带了特殊字符`{}"`，我们的接口地址是 `http://xxx?request={"key":"value"} `，本地 postman 测试复现不了，经过 debug 发现 postman 自动对特殊字符做了 urlencode 。这个问题还是挺坑的，本地用 httpclient 去构造请求的话也会直接校验 queryString，有特殊字符的话无法发出请求。最后要到了调用方的代码，发现用这个版本的工具包可以复现出来 400。
 ```
         <dependency>
             <groupId>commons-httpclient</groupId>
@@ -101,7 +99,7 @@ spring boot 项目在启动类 main 函数中配置
 ```
 
 #### 2.2 配置 relaxedQueryChars
-在高版本的 tomcat 里可以通过配置 relaxedQueryChars 来放开特殊字符校验。下面是一种方式，还有另外一种方式是通过 @bean 来配置的。
+在高版本的 tomcat 里可以通过配置 relaxedQueryChars 来放开特殊字符校验。下面是一种方式，还有另外一种方式是通过 @Bean 来配置。
 
 ```
 @Component
@@ -117,7 +115,7 @@ public class PortalTomcatWebServerCustomizer implements WebServerFactoryCustomiz
 ```
 
 ### 3 最终的办法
-那现在就出现一个非常尴尬的事情就是，解决问题 1 需要降低 tomcat 版本。解决问题 2 需要高版本 tomcat。没找到能完美解决两个问题的办法。那就只能使用终极大招换容器了。
+那现在就出现一个非常尴尬的事情就是，解决问题 1 需要降低 tomcat 版本。解决问题 2 需要高版本 tomcat。没找到能完美解决两个问题的办法。那就只能使用终极大招换容器了。如果你要问我为啥换容器就能行，瞎猫碰上死耗子信不信。
 
 #### 3.1 tomcat 换 jetty
 主要就是 pom 中替换依赖，这个具体怎么换就不细说啦，最后解决了 400。
@@ -145,9 +143,9 @@ Content-Encoding: deflate, gzip
 ```
 这才是正确的值。
 
-版本差异，规范实现的差异真的是让人头大。以为解决了问题结果又冒出来一个新的问题。
+版本差异，规范实现的差异真的是让人头大。解决了老的问题结果又冒出来一堆新的问题。
 
-代码不规范，研发两行泪。
+代码不规范，研发两行泪！
 
 ### 4 参考资料
 [Improve logging in AbstractProcessor.parseHost()](https://bz.apache.org/bugzilla/show_bug.cgi?id=62371#c14)
