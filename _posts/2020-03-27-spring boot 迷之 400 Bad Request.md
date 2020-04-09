@@ -11,23 +11,24 @@ tags:
 
 ### 1 The character [_] is never valid in a domain name
 ```
-xxxx the host [auth_tv] is not valid //记不清具体的信息了
+16:32:24.204 [http-nio-10099-exec-2] INFO  org.apache.coyote.http11.Http11Processor - The host [auth_tv] is not valid
+ Note: further occurrences of request parsing errors will be logged at DEBUG level.
 java.lang.IllegalArgumentException: The character [_] is never valid in a domain name.
-	org.apache.tomcat.util.http.parser.HttpParser$DomainParseState.next(HttpParser.java:926)
-	org.apache.tomcat.util.http.parser.HttpParser.readHostDomainName(HttpParser.java:822)
-	org.apache.tomcat.util.http.parser.Host.parse(Host.java:71)
-	org.apache.tomcat.util.http.parser.Host.parse(Host.java:45)
-	org.apache.coyote.AbstractProcessor.parseHost(AbstractProcessor.java:273)
-	org.apache.coyote.http11.Http11Processor.prepareRequest(Http11Processor.java:809)
-	org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
-	org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
-	org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:764)
-	org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1388)
-	org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	java.lang.Thread.run(Thread.java:748)
+	at org.apache.tomcat.util.http.parser.HttpParser$DomainParseState.next(HttpParser.java:926) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.tomcat.util.http.parser.HttpParser.readHostDomainName(HttpParser.java:822) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.tomcat.util.http.parser.Host.parse(Host.java:71) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.tomcat.util.http.parser.Host.parse(Host.java:45) ~[tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.coyote.AbstractProcessor.parseHost(AbstractProcessor.java:288) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.coyote.http11.Http11Processor.prepareRequest(Http11Processor.java:809) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:791) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_111]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_111]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_111]
 ```
 
 原因说的很清楚了，就是 host 里有下划线，校验不通过。但是应用之前一直都是好的，综合网上的资料发现是 tomcat 新版本中对参数校验更加严格了。
@@ -44,10 +45,8 @@ java.lang.IllegalArgumentException: The character [_] is never valid in a domain
 具体降能降到哪个版本只能自己试了，项目可能会依赖其中的一些方法，所以高版本降低版本经常会碰到无法启动的情况，在xxx类里缺少xxx方法什么的。我这次就碰到了，我项目 spring boot 版本为 `v2.1.1.RELEASE`，默认自带的tomcat 版本为 `tomcat-embed-core 9.0.13`。我尝试过降到 8.5.14 结果就提示少了 `AbstractProtocol.setAcceptCount(int acceptCount) ` 方法。所以如果你想用这种方法解决的话，那你得多多尝试了，网上给的建议不一定适合每一个人。
 
 
-其实还可以联想到另外一个类似的方法来解决这个问题，使用其他内嵌 servlet 容器来尝试，比如说用  jetty 。
-
 #### 1.2 解决源头
-可以从源头来解决，我的情况就是上游的 nginx 转发请求的时候往 host 值里加了 auth_tv，那如果能改掉这个名字就可以了呀，或者如果你的应用不需要用的  header 的话，可以考虑 nginx 屏蔽掉 header，这样你的应用就不用改了。
+可以从源头来解决，我的情况就是上游的 nginx 转发请求的时候往 host 值里加了 auth_tv，那如果能改掉这个名字就可以了呀，或者如果你的应用不需要用到 header 中 host 值的话，可以考虑 nginx 屏蔽掉 host。
 
 
 [Improve logging in AbstractProcessor.parseHost()](https://bz.apache.org/bugzilla/show_bug.cgi?id=62371#c14)
@@ -69,7 +68,14 @@ java.lang.IllegalArgumentException: Invalid character found in the request targe
         at java.lang.Thread.run(Thread.java:748) [?:1.8.0_161]
 ```
 
-这是因为在 url 中带了特殊字符`{}|`，我们的接口地址是 `http://xxx?request={"key":"value"} `，请求的时候需要对参数做 urlencode，但是在本地 postman 测试确复现不了。扔到服务器上就 400 。
+这是因为在 url 中带了特殊字符`{}|`，我们的接口地址是 `http://xxx?request={"key":"value"} `，本地 postman 测试复现不了，经过 debug 发现 postman 自动对特殊字符做了 urlencode 。这个问题还是挺坑的，本地用 httpclient 去构造请求的话也会直接校验 queryString，有特殊字符的话无法发出请求。最后要到了调用方的代码，发现用这个版本的工具包可以复现出来 400。
+```
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0</version>
+        </dependency>
+```
 
 #### 2.1 配置 requestTargetAllow
 spring boot 项目在启动类 main 函数中配置
@@ -77,16 +83,73 @@ spring boot 项目在启动类 main 函数中配置
 ```
  System.setProperty("tomcat.util.http.parser.HttpParser.requestTargetAllow","|{}");
 ```
-诡异的是我确认配置已经生效了（通过 debug），本地无法复现出返回 400 的情况，本地无法测试。所以扔到服务器上试了仍然 400。
+这个配置项只能对 `|{}` 这三个特殊字符有效。因为在 HttpParser 代码里写死了。这个配置项对我不起作用，因为我们的 queryString 里面还包含了 " (双引号)。
 
-#### 2.1 tomcat 换 jetty
-主要就是 pom 中替换依赖，这个具体怎么换就不细说啦，最后解决了 400。不过
-我换成 jetty 之后又碰到另外一个问题，原来获取头信息 content-type，在 jetty 里变成了  Content-Type。
+```
+        String prop = System.getProperty("tomcat.util.http.parser.HttpParser.requestTargetAllow");
+        int i;
+        if (prop != null) {
+            for(i = 0; i < prop.length(); ++i) {
+                char c = prop.charAt(i);
+                if (c != '{' && c != '}' && c != '|') {
+                    log.warn(sm.getString("httpparser.invalidRequestTargetCharacter", new Object[]{c}));
+                } else {
+                    REQUEST_TARGET_ALLOW[c] = true;
+                }
+            }
+        }
+```
 
-虽然 servlet 有规范，但是各个容器的细节还是稍有不同，真是让人头发。
+#### 2.2 配置 relaxedQueryChars
+在高版本的 tomcat 里可以通过配置 relaxedQueryChars 来放开特殊字符校验。下面是一种方式，还有另外一种方式是通过 @bean 来配置的。
+
+```
+@Component
+public class PortalTomcatWebServerCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+    public PortalTomcatWebServerCustomizer() {
+    }
+
+    @Override
+    public void customize(TomcatServletWebServerFactory factory) {
+        factory.addConnectorCustomizers(connector -> connector.setAttribute("relaxedQueryChars", "\"_{}[]|"));
+    }
+}
+```
+
+### 3 最终的办法
+那现在就出现一个非常尴尬的事情就是，解决问题 1 需要降低 tomcat 版本。解决问题 2 需要高版本 tomcat。没找到能完美解决两个问题的办法。那就只能使用终极大招换容器了。
+
+#### 3.1 tomcat 换 jetty
+主要就是 pom 中替换依赖，这个具体怎么换就不细说啦，最后解决了 400。
 
 
-### 3 参考资料
+不过我换成 jetty 之后又碰到另外两个问题，原来获取头信息 content-type，在 jetty 里变成了 Content-Type。
+
+有个接口 header 里传了 Content-Encoding:UTF-8，导致报 501 ：
+```
+WARN  org.eclipse.jetty.server.HttpChannel - /private/delivery/delivery_request org.eclipse.jetty.http.BadMessageException: 
+501: Unsupported Content-Encoding
+```
+
+Content-Encoding 不是这么传的呀，
+```
+Content-Encoding: gzip
+Content-Encoding: compress
+Content-Encoding: deflate
+Content-Encoding: identity
+Content-Encoding: br
+
+// Multiple, in the order in which they were applied
+Content-Encoding: gzip, identity
+Content-Encoding: deflate, gzip
+```
+这才是正确的值。
+
+版本差异，规范实现的差异真的是让人头大。以为解决了问题结果又冒出来一个新的问题。
+
+代码不规范，研发两行泪。
+
+### 4 参考资料
 [Improve logging in AbstractProcessor.parseHost()](https://bz.apache.org/bugzilla/show_bug.cgi?id=62371#c14)
 
 [characters are defined in RFC 7230 and RFC 3986](https://programmer.help/blogs/characters-are-defined-in-rfc-7230-and-rfc-3986.html)
