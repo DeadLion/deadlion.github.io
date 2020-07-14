@@ -45,8 +45,18 @@ nohup java -jar commontools-1.0.jar userId_leader0331.txt  >> result-$(date "+%Y
 -%m-%d-%H-%M-%S").txt 2>&1 &
 ```
 
+### 优缺点
+- 轻量
+- linux 内置服务稳定
+- 不适合分布式
+
+
 ### 避坑指南
 - 以前碰到一种情况是在 cron 中执行没有 java 环境，但是直接在终端中用 java 命令是正常的。所以直接在脚本里加载一下环境变量最好。
 - 注意下路径，最好用绝对路径。
 - 条件允许的话，第一次最好能自测下，将时间间隔调小些，模拟 cron 任务触发执行。
 - tailf /var/log/cron 可以查看定时任务执行记录
+
+
+### 其他资料
+[crontab 定时任务](https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html)
