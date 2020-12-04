@@ -54,22 +54,35 @@ java.lang.IllegalArgumentException: The character [_] is never valid in a domain
 
 ### 2 The valid characters are defined in RFC 7230 and RFC 3986
 ```
-2020-03-27 14:46:16.296 [http-nio-19098-exec-1] INFO  org.apache.coyote.http11.Http11Processor - Error parsing HTTP request header
+2020-04-08 13:31:40.688 [http-nio-10099-exec-1] INFO  org.apache.coyote.http11.Http11Processor - Error parsing HTTP request header
  Note: further occurrences of HTTP header parsing errors will be logged at DEBUG level.
 java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
-        at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:472) ~[tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:683) [tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1457) [tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_161]
-        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_161]
-        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.20.jar!/:8.5.20]
-        at java.lang.Thread.run(Thread.java:748) [?:1.8.0_161]
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:472) ~[tomcat-embed-core-8.5.20.jar:8.5.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:683) [tomcat-embed-core-8.5.20.jar:8.5.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.20.jar:8.5.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-8.5.20.jar:8.5.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1457) [tomcat-embed-core-8.5.20.jar:8.5.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.20.jar:8.5.20]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_111]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_111]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.20.jar:8.5.20]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_111]
 ```
 
-这是因为在 url 中带了特殊字符`{}|`，我们的接口地址是 `http://xxx?request={"key":"value"} `，请求的时候需要对参数做 urlencode，但是在本地 postman 测试确复现不了。扔到服务器上就 400 。
+这是因为在 url 中带了特殊字符`{}|`，我们的接口地址是 `http://xxx?request={"key":"value"} `，请求的时候需要对参数做 urlencode，但是在本地 postman 测试确复现不了。通过 debug 发现 postman 自动对特殊字符做了转换。
+原请求
+```
+private/account/queryLiveBalance?request={"userId":"903935426","accountTypes":["MOVIE_ORIENT_AMOUNT_TICKET"]}&clientId=xxx&sign=xxx
+```
+在应用里拦截下来的请求确是下面这样的
+```
+private/account/queryLiveBalance?request=%7B%22userId%22:%22903935426%22,%22accountTypes%22:[%22MOVIE_ORIENT_AMOUNT_TICKET%22]%7D&clientId=xxx&sign=xxx HTTP/1.1
+```
+
+后来我找调用方要到了源代码发起测试收到请求是没有转换过的
+```
+private/account/queryLiveBalance?request={"userId":"903935426","accountTypes":["MOVIE_ORIENT_AMOUNT_TICKET"]}&clientId=xxx&sign=xxx HTTP/1.1
+```
 
 #### 2.1 配置 requestTargetAllow
 spring boot 项目在启动类 main 函数中配置
