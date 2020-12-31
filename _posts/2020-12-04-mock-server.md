@@ -92,3 +92,9 @@ apollo 配置中有个 key 为 mockData ，value 为 MockData List JsonString，
 3.可能有些场景中会需要动态参数，比如说创建订单希望每次返回的订单 id 都是不同的，可以使用内置占位符，然后返回前替换。
 
 参考文章：[Mock Server实践](https://tech.meituan.com/2015/10/19/mock-server-in-action.html)
+
+
+#### 其他方案
+后来发现 [easy-mock](https://github.com/easy-mock/easy-mock) 也是能满足要求的。这个前端开发人员可能更了解，初衷是为了方便前端开发人员的，而且功能更加丰富。
+
+不过 easy-mock 法案对于使用了注册中心的服务就不支持了，各有利弊吧。
