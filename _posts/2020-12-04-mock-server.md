@@ -87,8 +87,8 @@ apollo 配置中有个 key 为 mockData ，value 为 MockData List JsonString，
 
 #### 改进项
 
-1.建议使用 webflux 异步响应，性能还有进一步提升。
-2.对于参数在 uri 中的情况可能会出现匹配不上的情况，例如 /student/get/{uid} ，因为项目中没有 @RequestMapping，所以用 request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE) 这种方式无效，建议用正则匹配。
+1.建议使用 webflux 异步响应，性能还有进一步提升。  
+2.对于参数在 uri 中的情况可能会出现匹配不上的情况，例如 /student/get/{uid} ，因为项目中没有 @RequestMapping，所以用 request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE) 这种方式无效，建议用正则匹配。  
 3.可能有些场景中会需要动态参数，比如说创建订单希望每次返回的订单 id 都是不同的，可以使用内置占位符，然后返回前替换。
 
 参考文章：[Mock Server实践](https://tech.meituan.com/2015/10/19/mock-server-in-action.html)
