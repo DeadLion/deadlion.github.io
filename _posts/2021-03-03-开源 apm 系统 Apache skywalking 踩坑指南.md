@@ -55,4 +55,22 @@ telemetry:
 #### 启动脚本
 bin/oapServer.sh 中的脚本限制了 oapServer 的内存大小，默认是 `-Xms256M -Xmx512M`，根据资源情况调整。
 
+#### ElasticSearch
+es 集群每个 node max_shards_per_node 值默值为 1000，比如我们 5 个 node，总 shard 值为 5000，如果是一个 index 一个 shard 算的话。5000/160 约 30 天就无法再创建新索引了。  
 
+会出现下面的异常：  
+```
+[ElasticsearchException[Elasticsearch exception [type=illegal_argument_exception, reason=Validation Failed: 1: this action would add [2] total shards, but this cluster currently has [4999]/[5000] maximum shards open;]]]]
+```
+可以按照实际情况设置值，或者将保存数据的时间调小，这样过期的索引就会被删掉。  
+```
+curl -L -X PUT 'localhost:9200/_cluster/settings?pretty' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+  "persistent": {
+    "cluster": {
+      "max_shards_per_node":1500
+    }
+  }
+}'
+```
