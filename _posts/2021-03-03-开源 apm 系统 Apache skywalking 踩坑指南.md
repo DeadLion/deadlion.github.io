@@ -52,10 +52,21 @@ prometheus-fetcher:
 telemetry:
   selector: ${SW_TELEMETRY:prometheus} 
 ```
+
+config/fetcher-prom-rules/self.yaml  url 需要修改
+```
+staticConfig:
+  # targets will be labeled as "instance"
+  targets:
+    - url: http://localhost:1234
+```
+
 #### 启动脚本
 bin/oapServer.sh 中的脚本限制了 oapServer 的内存大小，默认是 `-Xms256M -Xmx512M`，根据资源情况调整。
 
 #### ElasticSearch
+
+##### maximum shards open
 es 集群每个 node max_shards_per_node 值默值为 1000，比如我们 5 个 node，总 shard 值为 5000，如果是一个 index 一个 shard 算的话。5000/160 约 30 天就无法再创建新索引了。  
 
 会出现下面的异常：  
@@ -73,4 +84,36 @@ curl -L -X PUT 'localhost:9200/_cluster/settings?pretty' \
     }
   }
 }'
+```
+
+##### index already exists
+
+es 集群响应慢的时候会出现重复去创建 index 的情况，导致启动失败。这种情况建议是选取一个实例用 oapService.sh 来启动，但是这个实例需要用 supervisord 服务来确保能及时拉起。其他的实例都用 oapServiceNoInit.sh
+脚本启动，这样会初始化创建实例的脚本可以一直
+
+```
+2021-05-06 12:37:35,806 - org.apache.skywalking.oap.server.starter.OAPServerBootstrap - 57 [main] ERROR [] - Elasticsearch exception [type=resource_already_exists_exception, reason=index [browser_app_page_load_page_percentile-20210506/3G6ROmwWRGqPOlftKD92Rw] already exists]
+org.elasticsearch.ElasticsearchStatusException: Elasticsearch exception [type=resource_already_exists_exception, reason=index [browser_app_page_load_page_percentile-20210506/3G6ROmwWRGqPOlftKD92Rw] already exists]
+        at org.elasticsearch.rest.BytesRestResponse.errorFromXContent(BytesRestResponse.java:177) ~[elasticsearch-7.5.0.jar:7.5.0]
+        at org.elasticsearch.client.RestHighLevelClient.parseEntity(RestHighLevelClient.java:1793) ~[elasticsearch-rest-high-level-client-7.5.0.jar:7.5.0]
+        at org.elasticsearch.client.RestHighLevelClient.parseResponseException(RestHighLevelClient.java:1770) ~[elasticsearch-rest-high-level-client-7.5.0.jar:7.5.0]
+        at org.elasticsearch.client.RestHighLevelClient.internalPerformRequest(RestHighLevelClient.java:1527) ~[elasticsearch-rest-high-level-client-7.5.0.jar:7.5.0]
+        at org.elasticsearch.client.RestHighLevelClient.performRequest(RestHighLevelClient.java:1499) ~[elasticsearch-rest-high-level-client-7.5.0.jar:7.5.0]
+        at org.elasticsearch.client.RestHighLevelClient.performRequestAndParseEntity(RestHighLevelClient.java:1466) ~[elasticsearch-rest-high-level-client-7.5.0.jar:7.5.0]
+        at org.elasticsearch.client.IndicesClient.create(IndicesClient.java:131) ~[elasticsearch-rest-high-level-client-7.5.0.jar:7.5.0]
+        at org.apache.skywalking.oap.server.storage.plugin.elasticsearch7.client.ElasticSearch7Client.createIndex(ElasticSearch7Client.java:109) ~[storage-elasticsearch7-plugin-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.storage.plugin.elasticsearch.base.StorageEsInstaller.createTable(StorageEsInstaller.java:93) ~[storage-elasticsearch-plugin-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.core.storage.model.ModelInstaller.whenCreating(ModelInstaller.java:55) ~[server-core-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.core.storage.model.StorageModels.add(StorageModels.java:70) ~[server-core-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.core.analysis.worker.MetricsStreamProcessor.create(MetricsStreamProcessor.java:138) ~[server-core-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.core.analysis.worker.MetricsStreamProcessor.create(MetricsStreamProcessor.java:97) ~[server-core-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.core.analysis.StreamAnnotationListener.notify(StreamAnnotationListener.java:57) ~[server-core-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oal.rt.OALRuntime.notifyAllListeners(OALRuntime.java:167) ~[oal-rt-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.core.oal.rt.OALEngineLoaderService.load(OALEngineLoaderService.java:61) ~[server-core-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.receiver.browser.provider.BrowserModuleProvider.start(BrowserModuleProvider.java:73) ~[skywalking-browser-receiver-plugin-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.library.module.BootstrapFlow.start(BootstrapFlow.java:49) ~[library-module-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.library.module.ModuleManager.init(ModuleManager.java:62) ~[library-module-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.starter.OAPServerBootstrap.start(OAPServerBootstrap.java:43) [server-bootstrap-8.4.0.jar:8.4.0]
+        at org.apache.skywalking.oap.server.starter.OAPServerStartUp.main(OAPServerStartUp.java:27) [server-starter-es7-8.4.0.jar:8.4.0]
+        Suppressed: org.elasticsearch.client.ResponseException: method [PUT], host [http://10.186.85.123:9200], URI [/browser_app_page_load_page_percentile-20210506?master_timeout=30s&timeout=30s], status line [HTTP/1.1 400 Bad Request]
 ```
