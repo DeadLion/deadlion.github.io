@@ -60,4 +60,10 @@ pm.request.headers.add({key:"X-HMAC-ALGORITHM",value:algorithm})
 
 不过我们没使用需要签名的自定义 header，如果有使用的话需要拼接一下。自己稍微改下就行了。
 
+APISIX hmac-auth 插件的文档：https://apisix.apache.org/zh/docs/apisix/plugins/hmac-auth
+
+
+postman pre-request-scripts 文档：https://learning.getpostman.com/docs/writing-scripts/pre-request-scripts/
+
+不同 postman 版本 pre-request-scripts 语法可能不同，万一跑不起来了检查下最新的文档。
 
