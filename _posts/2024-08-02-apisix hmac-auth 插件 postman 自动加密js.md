@@ -39,6 +39,7 @@ var method = pm.request.method
 
 var uri = targetUrl
 
+//纯接口，没有 query string ，留空
 var canonical_query_string = ""
 
 var sigString = method+"\n"+uri +"\n" +canonical_query_string+"\n"+keyId+"\n"+gmtDate +"\n"
@@ -58,7 +59,7 @@ pm.request.headers.add({key:"X-HMAC-ALGORITHM",value:algorithm})
 
 ```
 
-不过我们没使用需要签名的自定义 header，如果有使用的话需要拼接一下。自己稍微改下就行了。
+不过我们没使用需要签名的自定义 header，query string 也没用，如果有使用的话需要拼接一下。自己稍微改下就行了。
 
 APISIX hmac-auth 插件的文档：https://apisix.apache.org/zh/docs/apisix/plugins/hmac-auth
 
